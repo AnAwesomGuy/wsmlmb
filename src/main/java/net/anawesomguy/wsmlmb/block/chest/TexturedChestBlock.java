@@ -7,49 +7,19 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 public class TexturedChestBlock extends ChestBlock {
-    private ChestTriple normalTextures = ChestTriple.getDefault();
-    private ChestTriple christmasTextures = ChestTriple.getDefaultChristmas();
+    private final ChestTriple normalTextures;
+    private final ChestTriple christmasTextures;
 
-    public TexturedChestBlock(Settings settings) {
+    public TexturedChestBlock(Settings settings, ChestTriple normalTextures, ChestTriple christmasTextures) {
         super(settings, () -> WSMLMB.TEXTURED_CHEST_ENTITY_TYPE);
+        this.normalTextures = normalTextures == null ? (christmasTextures == null ? ChestTriple.getDefault() : christmasTextures) : normalTextures;
+        this.christmasTextures = christmasTextures == null ? (normalTextures == null ? ChestTriple.getDefaultChristmas() : normalTextures) : christmasTextures;
         WSMLMB.TEXTURED_CHESTS.add(this); // TODO: find a better way to run stuff on this on the client
     }
 
     @Override 
     public TexturedChestBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new TexturedChestBlockEntity(pos, state, normalTextures, christmasTextures);
-    }
-
-    /**
-     * Sets the textures of this chest (for when it is not Christmas). This will also set the {@link TexturedChestBlock#christmasTextures} if they have not been set already.
-     * @param single an {@link Identifier} for the texture for this chest when it is by itself.
-     * @param left an {@link Identifier} for the texture for the left side of the double chest.
-     * @param right an {@link Identifier} for the texture for the right side of the double chest.
-     * @return {@code this}, after the textures have been set.
-     */
-    public TexturedChestBlock setTextures(Identifier single, Identifier left, Identifier right) {
-        normalTextures = new ChestTriple(single, left, right);
-        if (christmasTextures.isDefaultChristmas())
-            christmasTextures = new ChestTriple(single, left, right);
-        return this;
-    }
-
-    /**
-     * Sets the textures of this chest for when it is Christmas. This will also set the {@link TexturedChestBlock#normalTextures} if they have not been set already.
-     * @param single an {@link Identifier} for the texture for this chest when it is by itself.
-     * @param left an {@link Identifier} for the texture for the left side of the double chest.
-     * @param right an {@link Identifier} for the texture for the right side of the double chest.
-     * @return {@code this}, after the textures have been set.
-     */
-    public TexturedChestBlock setChristmasTextures(Identifier single, Identifier left, Identifier right) {
-        christmasTextures = new ChestTriple(single, left, right);
-        if (normalTextures.isDefault())
-            normalTextures = new ChestTriple(single, left, right);
-        return this;
-    }
-
-    public TexturedChestBlock setTextures(Identifier single, Identifier left, Identifier right, boolean christmas) {
-        return christmas ? setChristmasTextures(single, left, right) : setTextures(single, left, right);
     }
 
     /**
@@ -68,5 +38,47 @@ public class TexturedChestBlock extends ChestBlock {
 
     public ChestTriple getTextures(boolean christmas) {
         return christmas ? christmasTextures : normalTextures;
+    }
+
+    public static class Builder {
+        private final Settings settings;
+        private ChestTriple normalTextures;
+        private ChestTriple christmasTextures;
+
+        public Builder(Settings settings) {
+            this.settings = settings;
+        }
+
+        /**
+         * Sets the textures of this chest (for when it is not Christmas). This will also set the {@link TexturedChestBlock#christmasTextures} if they have not been set already.
+         * @param single an {@link Identifier} for the texture for this chest when it is by itself.
+         * @param left an {@link Identifier} for the texture for the left side of the double chest.
+         * @param right an {@link Identifier} for the texture for the right side of the double chest.
+         * @return {@code this}, after the textures have been set.
+         */
+        public Builder setTextures(Identifier single, Identifier left, Identifier right) {
+            normalTextures = new ChestTriple(single, left, right);
+            return this;
+        }
+
+        /**
+         * Sets the textures of this chest for when it is Christmas. This will also set the {@link TexturedChestBlock#normalTextures} if they have not been set already.
+         * @param single an {@link Identifier} for the texture for this chest when it is by itself.
+         * @param left an {@link Identifier} for the texture for the left side of the double chest.
+         * @param right an {@link Identifier} for the texture for the right side of the double chest.
+         * @return {@code this}, after the textures have been set.
+         */
+        public Builder setChristmasTextures(Identifier single, Identifier left, Identifier right) {
+            christmasTextures = new ChestTriple(single, left, right);
+            return this;
+        }
+
+        public Builder setTextures(Identifier single, Identifier left, Identifier right, boolean christmas) {
+            return christmas ? setChristmasTextures(single, left, right) : setTextures(single, left, right);
+        }
+
+        public TexturedChestBlock build() {
+            return new TexturedChestBlock(settings, normalTextures, christmasTextures);
+        }
     }
 }

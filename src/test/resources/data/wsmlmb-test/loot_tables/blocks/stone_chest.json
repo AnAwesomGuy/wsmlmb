@@ -1,0 +1,12 @@
+{
+  "type": "block",
+  "pools": [{
+    "rolls": 1,
+    "bonus_rolls": 0,
+    "entries": [{
+      "type": "item",
+      "name": "wsmlmb-test:stone_chest"
+    }],
+    "conditions": [{"condition": "survives_explosion"}]
+  }]
+}

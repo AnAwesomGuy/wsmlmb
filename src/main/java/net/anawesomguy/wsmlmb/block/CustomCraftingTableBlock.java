@@ -17,34 +17,19 @@ import net.minecraft.world.World;
  * So, you can just use this block to create a functional custom crafting table.
  */
 public class CustomCraftingTableBlock extends CraftingTableBlock {
-    protected TranslatableText titleText = new TranslatableText("container.crafting");
+    protected final TranslatableText titleText;
 
     public CustomCraftingTableBlock(Settings settings) {
+        this(settings, new TranslatableText("container.crafting"));
+    }
+
+    public CustomCraftingTableBlock(Settings settings, String titleText) {
+        this(settings, new TranslatableText(titleText));
+    }
+
+    public CustomCraftingTableBlock(Settings settings, TranslatableText titleText) {
         super(settings);
-    }
-
-    /**
-     * Sets the title of this block's the crafting GUI.
-     *
-     * @param text the text to set as the title of this block's crafting GUI.
-     * @return {@code this}, after the block's screen's title has been set.
-     */
-    public CustomCraftingTableBlock setScreenTitle(TranslatableText text) {
-        titleText = text;
-        return this;
-    }
-
-    /**
-     * Sets the title of this block's the crafting GUI.
-     * <p>
-     * This is equivalent to: {@code setScreenTitle(new TranslatableText(langKey))}
-     * @param langKey the language key to set as the title of this block's crafting GUI.
-     * @return {@code this}, after the block's screen's title has been set.
-     *
-     * @see TranslatableText
-     */
-    public CustomCraftingTableBlock setScreenTitle(String langKey) {
-        return setScreenTitle(new TranslatableText(langKey));
+        this.titleText = titleText;
     }
 
     @Override

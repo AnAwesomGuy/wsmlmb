@@ -18,9 +18,10 @@ public final class WSMLMBTest implements ModInitializer {
     public static final Block STONE_CHEST = Registry.register(
         Registry.BLOCK,
         new Identifier(MOD_ID, "stone_chest"),
-        new TexturedChestBlock(AbstractBlock.Settings.of(Material.STONE).strength(1.5F, 6).requiresTool())
+        new TexturedChestBlock.Builder(AbstractBlock.Settings.of(Material.STONE).strength(1.5F, 6).requiresTool())
             .setTextures(new Identifier("block/andesite"), new Identifier("block/diorite"), new Identifier("block/stone")) // sets the normal textures (when it's not Christmas) (i also can't be bothered to make real textures lol)
             .setChristmasTextures(new Identifier("block/granite"), new Identifier("block/deepslate"), new Identifier("block/mossy_cobblestone")) // sets the texture of the chest when it is Christmas
+            .build()
     );
     public static final Item STONE_CHEST_ITEM = Registry.register(
         Registry.ITEM,

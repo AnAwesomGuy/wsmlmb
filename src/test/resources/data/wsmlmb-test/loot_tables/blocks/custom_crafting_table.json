@@ -1,0 +1,12 @@
+{
+  "type": "block",
+  "pools": [{
+    "rolls": 1,
+    "bonus_rolls": 0,
+    "entries": [{
+        "type": "item",
+        "name": "wsmlmb-test:custom_crafting_table"
+    }],
+    "conditions": [{"condition": "survives_explosion"}]
+  }]
+}

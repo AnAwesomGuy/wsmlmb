@@ -20,7 +20,7 @@ public record ChestTriple(Identifier singleTexture, Identifier leftTexture, Iden
         new Identifier("entity/chest/right")
     );
     /**
-     * A {@link ChestTriple} storing the default textures for a chest when it is christmas.
+     * A {@link ChestTriple} storing the default textures for a chest when it is Christmas.
      */
     private static final ChestTriple DEFAULT_CHRISTMAS_TEXTURES = new ChestTriple(
         new Identifier("entity/chest/christmas"),
