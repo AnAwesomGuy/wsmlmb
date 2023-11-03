@@ -1,0 +1,4 @@
+{
+  "parent": "item/chest",
+  "textures": {"particle": "block/cobblestone"}
+}

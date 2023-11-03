@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.anawesomguy.wsmlmb.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": ["chests.TexturedRenderLayersMixin"],
+  "mixins": [
+    "shears.BlockInteractShearsMixin",
+    "shears.DispenserBlockMixin",
+    "shears.EfficiencyEnchantmentMixin",
+    "shears.EntityInteractShearsMixin",
+    "shears.MatchToolLootConditionMixin",
+    "shears.TripwireBlockMixin"
+  ],
+  "injectors": {"defaultRequire": 1}
+}

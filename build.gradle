@@ -1,6 +1,8 @@
+import me.modmuss50.mpp.ReleaseType
+
 plugins {
-	id 'fabric-loom' version '0.12-SNAPSHOT'
-	id 'maven-publish'
+	id 'me.modmuss50.mod-publish-plugin' version '0.4.2'
+	id 'fabric-loom' version '1.4.1'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -14,59 +16,116 @@ repositories {
 	// Add repositories to retrieve artifacts from in here.
 	// You should only use this when depending on other mods because
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
 }
 
 dependencies {
-	// To change the versions see the gradle.properties file
+	// To change the versions see the gradle.properties file.
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	// Fabric API. This is technically optional, but you probably want it anyway.
+	// Fabric API.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 
-processResources {
+tasks.withType(ProcessResources).configureEach {
+	String version_range = ">=$version_start <=$version_end"
 	inputs.property "version", project.version
+	inputs.property "range", version_range
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand "version": project.version, "range": version_range
+	}
+}
+
+publishMods {
+	def version = mod_version.split('\\+')[0]
+	type = release_type.toLowerCase() == 'release' ? STABLE : ReleaseType.of(release_type)
+	displayName = "[${version_start}-${version_end}] WSMLMB $version"
+	file = remapJar.archiveFile
+
+	modLoaders.add('fabric')
+	modLoaders.add('quilt')
+
+	additionalFiles.from(jar.archiveFile)
+	changelog = file('changelog.md').text
+
+	modrinth {
+		projectId = 'gIPBnBdZ'
+		accessToken = providers.environmentVariable('$MODRINTH_TOKEN')
+		announcementTitle = "Modrinth Download"
+		displayName = "WSMLMB $version"
+
+		minecraftVersionRange {
+			start = version_start
+			end = version_end
+			includeSnapshots = true
+		}
+
+		requires {
+			slug = 'fabric-api'
+		}
+	}
+
+	curseforge {
+		projectSlug = 'wsmlmb'
+		projectId = '932603'
+		accessToken = providers.environmentVariable('$CURSEFORGE_TOKEN')
+		announcementTitle = "Curseforge Download"
+
+		minecraftVersionRange {
+			start = version_start
+			end = version_end
+		}
+
+		requires {
+			slug = 'fabric-api'
+		}
+	}
+
+	github {
+		accessToken = providers.environmentVariable('$GITHUB_TOKEN')
+		repository = 'AnAwesomGuy/wsmlmb'
+		announcementTitle = "Github Download"
+		commitish = github_branch
+		tagName = (type == STABLE ? "release" : type.toString().toLowerCase()) + '/' + version
 	}
 }
 
 tasks.withType(JavaCompile).configureEach {
-	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
 	it.options.release = 17
 }
 
 java {
-	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-	// if it is present.
-	// If you remove this line, sources will not be generated.
+	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build"
+	// task if it is present. If you remove this line, sources will not be generated.
 	withSourcesJar()
 }
 
 jar {
 	from("LICENSE") {
-		rename { "${it}_${project.archivesBaseName}"}
+		rename { "${it}_${archives_base_name}"}
 	}
 }
 
-// configure the maven publication
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			from components.java
-		}
-	}
+loom {
+	// accesswidener
+	accessWidenerPath = file("src/main/resources/wsmlmb.accesswidener")
 
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
+	// testmod runs
+	runs {
+		testmodClient {
+			client()
+			ideConfigGenerated project.rootProject == project
+			name = "Testmod Client"
+			source sourceSets.test
+		}
+
+		testmodServer {
+			server()
+			ideConfigGenerated project.rootProject == project
+			name = "Testmod Server"
+			source sourceSets.test
+		}
 	}
 }
