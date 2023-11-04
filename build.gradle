@@ -1,4 +1,5 @@
 import me.modmuss50.mpp.ReleaseType
+import net.fabricmc.loom.task.RemapJarTask
 
 plugins {
 	id 'me.modmuss50.mod-publish-plugin' version '0.4.2'
@@ -47,8 +48,8 @@ java {
 	withJavadocJar()
 }
 
-jar {
-	from("LICENSE") {
+[jar, sourcesJar].each {
+	it.from("LICENSE") {
 		rename { "${it}_${archives_base_name}"}
 	}
 }
@@ -61,6 +62,24 @@ javadoc {
 	exclude 'net/anawesomguy/wsmlmb/mixin'
 }
 
+// testmod stuff (taken from fapi)
+tasks.register('testmodJar', Jar) {
+	from sourceSets.test.output
+	destinationDirectory = new File(project.buildDir, "devlibs")
+	archiveClassifier = "testmod"
+}
+
+tasks.register('remapTestmodJar', RemapJarTask) {
+	Jar testmodJar = tasks.named('testmodJar').get() as Jar
+	dependsOn testmodJar
+	input = testmodJar.archiveFile
+	archiveClassifier = "testmod"
+	addNestedDependencies = false
+}
+
+RemapJarTask remapTestmodJar = tasks.named('remapTestmodJar').get() as RemapJarTask
+tasks.named('build').get().dependsOn(remapTestmodJar)
+
 publishMods {
 	def version = mod_version.split('\\+')[0]
 	type = release_type.toLowerCase() == 'release' ? STABLE : ReleaseType.of(release_type)
@@ -71,7 +90,7 @@ publishMods {
 	modLoaders.add('quilt')
 
 	changelog = file('changelog.md').text
-	additionalFiles.from(sourcesJar.archiveFile, remapSourcesJar.archiveFile, javadocJar.archiveFile)
+	additionalFiles.from(sourcesJar.archiveFile, remapSourcesJar.archiveFile, javadocJar.archiveFile, remapTestmodJar.archiveFile)
 
 	modrinth {
 		projectId = 'gIPBnBdZ'
