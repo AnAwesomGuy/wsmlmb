@@ -5,9 +5,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.NotNull;
 
 public class TexturedChestBlock extends ChestBlock {
+    @NotNull
     private final ChestTriple normalTextures;
+    @NotNull
     private final ChestTriple christmasTextures;
 
     public TexturedChestBlock(Settings settings, ChestTriple normalTextures, ChestTriple christmasTextures) {
@@ -25,21 +28,26 @@ public class TexturedChestBlock extends ChestBlock {
     /**
      * @return the textures for this chest.
      */
-    public ChestTriple getTextures() {
+    public @NotNull ChestTriple getTextures() {
         return normalTextures;
     }
 
     /**
      * @return the textures for this chest, when it is Christmas.
      */
-    public ChestTriple getChristmasTextures() {
+    public @NotNull ChestTriple getChristmasTextures() {
         return christmasTextures;
     }
 
-    public ChestTriple getTextures(boolean christmas) {
+    public @NotNull ChestTriple getTextures(boolean christmas) {
         return christmas ? christmasTextures : normalTextures;
     }
 
+    /**
+     * A builder class for {@link TexturedChestBlock}, since blocks should be immutable.
+     * <p>
+     * You can use the {@link TexturedChestBlock#TexturedChestBlock(Settings, ChestTriple, ChestTriple) constructor} manually, but this is the recommended way.
+     */
     public static class Builder {
         private final Settings settings;
         private ChestTriple normalTextures;
