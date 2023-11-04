@@ -71,7 +71,7 @@ publishMods {
 	modLoaders.add('quilt')
 
 	changelog = file('changelog.md').text
-	additionalFiles.from(sourcesJar.archiveFile, remapSourcesJar.archiveFile, javadoc.destinationDir)
+	additionalFiles.from(sourcesJar.archiveFile, remapSourcesJar.archiveFile, javadocJar.archiveFile)
 
 	modrinth {
 		projectId = 'gIPBnBdZ'
