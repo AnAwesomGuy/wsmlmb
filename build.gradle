@@ -38,6 +38,29 @@ tasks.withType(ProcessResources).configureEach {
 	}
 }
 
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 17
+}
+
+java {
+	withSourcesJar()
+	withJavadocJar()
+}
+
+jar {
+	from("LICENSE") {
+		rename { "${it}_${archives_base_name}"}
+	}
+}
+
+remapSourcesJar {
+	archiveClassifier.set(archiveClassifier.get().concat("-remapped"))
+}
+
+javadoc {
+	exclude 'net/anawesomguy/wsmlmb/mixin'
+}
+
 publishMods {
 	def version = mod_version.split('\\+')[0]
 	type = release_type.toLowerCase() == 'release' ? STABLE : ReleaseType.of(release_type)
@@ -48,6 +71,7 @@ publishMods {
 	modLoaders.add('quilt')
 
 	changelog = file('changelog.md').text
+	additionalFiles.from(sourcesJar.archiveFile, remapSourcesJar.archiveFile, javadoc.destinationDir)
 
 	modrinth {
 		projectId = 'gIPBnBdZ'
@@ -91,24 +115,9 @@ publishMods {
 	}
 }
 
-tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
-}
-
-java {
-	withSourcesJar()
-	withJavadocJar()
-}
-
-jar {
-	from("LICENSE") {
-		rename { "${it}_${archives_base_name}"}
-	}
-}
-
 loom {
 	// accesswidener
-	accessWidenerPath = file("src/main/resources/wsmlmb.accesswidener")
+	accessWidenerPath = file "src/main/resources/wsmlmb.accesswidener"
 
 	// testmod runs
 	runs {

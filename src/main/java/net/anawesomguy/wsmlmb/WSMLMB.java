@@ -34,9 +34,12 @@ public final class WSMLMB implements ModInitializer {
      * An {@link ArrayList} containing all instances of {@link MatchToolLootCondition} (done using a mixin to its {@link MatchToolLootCondition#MatchToolLootCondition(ItemPredicate) constructor}).
      * <p>
      * This will later be iterated over in {@link WSMLMB#onInitialize()} so that everything in the {@link ConventionalItemTags#SHEARS fabric:shears} tag will be added to the condition's {@link MatchToolLootCondition#predicate predicate}'s {@link net.minecraft.predicate.item.ItemPredicate#items items} if it contains {@link Items#SHEARS}.
+     *
+     * @hidden
      */
     @Internal // don't use this
     public static final List<MatchToolLootCondition> MATCH_TOOL_INSTANCES = new ArrayList<>();
+    /** @hidden */
     @Internal // don't use this
     public static final List<TexturedChestBlock> TEXTURED_CHESTS = new ArrayList<>();
     public static final BlockEntityType<TexturedChestBlockEntity> TEXTURED_CHEST_ENTITY_TYPE = Registry.register(
