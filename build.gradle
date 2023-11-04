@@ -47,7 +47,6 @@ publishMods {
 	modLoaders.add('fabric')
 	modLoaders.add('quilt')
 
-	additionalFiles.from(sourcesJar.archiveFile)
 	changelog = file('changelog.md').text
 
 	modrinth {
@@ -105,10 +104,6 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_${archives_base_name}"}
 	}
-}
-
-remapSourcesJar {
-	archiveClassifier += "-remapped"
 }
 
 loom {
