@@ -1,18 +1,13 @@
 package net.anawesomguy.wsmlmb.util;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.TextContent;
 import net.minecraft.text.TranslatableTextContent;
-
-import java.lang.reflect.Method;
 
 /**
  * This class contains some utility methods used in the library.
  */
 public final class WSMLMBUtil {
-    private static final Method TRANSLATABLE_TEXT;
-
     /**
      * Creates a translatable text out of the given language key.
      * <p>
@@ -30,24 +25,5 @@ public final class WSMLMBUtil {
         else {
             return MutableText.of((TextContent)temp);
         }
-    }
-
-    static {
-        Method translatable_text;
-        try {
-            translatable_text = MutableText.class.getMethod(
-                FabricLoader.getInstance()
-                    .getMappingResolver()
-                    .mapMethodName(
-                        "intermediary",
-                        "class_5250",
-                        "method_43477",
-                        "(net.minecraft.class_7417)Lnet.minecraft.class_5250;"
-                    )
-            );
-        } catch (NoSuchMethodException e) {
-            translatable_text = null;
-        }
-        TRANSLATABLE_TEXT = translatable_text;
     }
 }
