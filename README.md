@@ -15,7 +15,7 @@ This library depends on [Fabric API](https://modrinth.com/mod/fabric-api), but y
 This mod is a library mod with 3 main features:
 
  - the ability to create functional custom chests with custom textures.
- - the ability to create functional custom shears by adding your item into the `#fabric:shears` tag.
+ - the ability to create functional custom shears by adding your item into the `#c:shears` tag.
  - the ability to create functional custom crafting tables.
 
 To use this mod as a library, you can use [Modrinth's maven](https://docs.modrinth.com/maven):
@@ -34,6 +34,8 @@ Many of the classes and methods in this mod are already documented in the test m
 For adding custom chests, see the [TexturedChestBlock](src/main/java/net/anawesomguy/wsmlmb/block/chest/TexturedChestBlock.java) class and method, and read their JavaDocs.<br>
 You can do that same for custom crafting tables at [CustomCraftingTableBlock](src/main/java/net/anawesomguy/wsmlmb/block/CustomCraftingTableBlock.java).
 
-To add custom shears, simply add your `ShearsItem` to the `#fabric:shears` tag.
+To add custom shears, simply add your `ShearsItem` to the `#c:shears` tag.
+
+### Every major version (1.x.x -> 2.x.x) will have breaking changes, so make your dependencies for only one major version!
 
 If you need any help, you can contact me at `@anawesomguy` on Discord in the ["The Fabric Project"](https://discord.gg/v6v4pMv) server.

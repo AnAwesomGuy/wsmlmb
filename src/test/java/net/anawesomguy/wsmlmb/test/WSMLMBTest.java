@@ -38,7 +38,7 @@ public final class WSMLMBTest implements ModInitializer {
         new Identifier(MOD_ID, "custom_crafting_table"),
         new BlockItem(CUSTOM_CRAFTING_TABLE, new Item.Settings().group(ItemGroup.DECORATIONS))
     );
-    // will be added to fabric:shears
+    // will be added to c:shears
     public static final Item TEST_SHEARS = Registry.register(
         Registry.ITEM,
         new Identifier(MOD_ID, "test_shears"),

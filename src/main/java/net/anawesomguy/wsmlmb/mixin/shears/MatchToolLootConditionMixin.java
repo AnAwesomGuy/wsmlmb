@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MatchToolLootConditionMixin implements LootCondition {
     @Inject(at = @At("RETURN"), method = "<init>")
     private void stone_utils$shearsLoot(CallbackInfo ci) {
-        // allows anything in fabric:shears to mine grass (and other stuff) and it will drop
+        // allows anything in c:shears to mine grass (and other stuff) and it will drop
         WSMLMB.MATCH_TOOL_INSTANCES.add((MatchToolLootCondition)(Object)this);
     }
 }

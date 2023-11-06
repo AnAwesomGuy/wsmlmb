@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class BlockInteractShearsMixin {
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"), method = "onUse")
     private boolean stone_utils$isShears(ItemStack stack, Item item) {
-        // allows anything in fabric:shears to shear pumpkins and beehives
+        // allows anything in c:shears to shear pumpkins and beehives
         return stack.isOf(item) || stack.isIn(ConventionalItemTags.SHEARS);
     }
 }

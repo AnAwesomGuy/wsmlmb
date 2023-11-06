@@ -59,6 +59,7 @@ remapSourcesJar {
 }
 
 javadoc {
+	javadoc.options.quiet()
 	exclude 'net/anawesomguy/wsmlmb/mixin'
 }
 

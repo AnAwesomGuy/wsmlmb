@@ -1,64 +1,53 @@
 package net.anawesomguy.wsmlmb.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.TextContent;
+import net.minecraft.text.TranslatableTextContent;
 
+import java.lang.reflect.Method;
+
+/**
+ * This class contains some utility methods used in the library.
+ */
 public final class WSMLMBUtil {
-    public static final String TAB = "\t";
-    public static final char TAB_CHAR = '\t';
-    public static final Object[] EMPTY_ARRAY = {};
+    private static final Method TRANSLATABLE_TEXT;
 
-    public static <T> T last(T[] array) {
-        return array.length < 1 ? null : array[array.length - 1];
+    /**
+     * Creates a translatable text out of the given language key.
+     * <p>
+     * This is used for support between different versions.
+     *
+     * @param langKey the language key to create a translatable text out of.
+     * @return a translatable text representing the given {@code langKey}.
+     */
+    // this is kinda stupid lol
+    @SuppressWarnings("all") // but if it works it works ig
+    public static MutableText toTranslatable(String langKey) {
+        Object temp = new TranslatableTextContent(langKey);
+        if (temp instanceof MutableText)
+            return (MutableText)temp;
+        else {
+            return MutableText.of((TextContent)temp);
+        }
     }
 
-    public static <T> T lastOrThrow(T[] array) {
-        return array[array.length - 1];
-    }
-
-    public static <T> T last(List<T> list) {
-        return list.isEmpty() ? null : list.get(list.size() - 1);
-    }
-
-    public static <T> T lastOrThrow(List<T> list) {
-        return list.get(list.size() - 1);
-    }
-
-    public static <T> T[] removeLast(T[] array) {
-        return array.length < 1 ? array : Arrays.copyOf(array, array.length - 1);
-    }
-
-    public static <T> T removeLast(List<T> list) {
-        if (list.isEmpty())
-            return null;
-        T result = list.remove(list.size() - 1);
-        if (list instanceof ArrayList<T>)
-            ((ArrayList<T>)list).trimToSize();
-        return result;
-    }
-
-    public static <T> T[] removeFirst(T[] array) {
-        return array.length < 1 ? array : Arrays.copyOfRange(array, 1, array.length);
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T> T[] emptyArray() {
-        return (T[])EMPTY_ARRAY;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T> T[] toArray(Collection<T> coll) {
-        return coll.toArray((T[])EMPTY_ARRAY);
-    }
-
-    @SafeVarargs
-    public static <T> ArrayList<T> list(T... elements) {
-        return new ArrayList<>(Arrays.asList(elements));
-    }
-
-    private WSMLMBUtil() {
-        throw new AssertionError("Cannot instantiate WSMLMBUtil!");
+    static {
+        Method translatable_text;
+        try {
+            translatable_text = MutableText.class.getMethod(
+                FabricLoader.getInstance()
+                    .getMappingResolver()
+                    .mapMethodName(
+                        "intermediary",
+                        "class_5250",
+                        "method_43477",
+                        "(net.minecraft.class_7417)Lnet.minecraft.class_5250;"
+                    )
+            );
+        } catch (NoSuchMethodException e) {
+            translatable_text = null;
+        }
+        TRANSLATABLE_TEXT = translatable_text;
     }
 }

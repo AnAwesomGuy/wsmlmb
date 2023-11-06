@@ -27,7 +27,7 @@ import java.util.Map;
 @Environment(EnvType.CLIENT)
 public final class WSMLMBClient implements ClientModInitializer {
     private static final Map<TexturedChestBlock, TexturedChestBlockEntity> BLOCK_TO_ENTITY_MAP = new HashMap<>();
-    @Override
+    @Override @SuppressWarnings("deprecation")
     public void onInitializeClient() {
         // register chest item renderers
         for (TexturedChestBlock chest : WSMLMB.TEXTURED_CHESTS) {
@@ -54,7 +54,6 @@ public final class WSMLMBClient implements ClientModInitializer {
                     }
                 }
             });
-
 
         BlockEntityRendererRegistry.register(WSMLMB.TEXTURED_CHEST_ENTITY_TYPE, ChestBlockEntityRenderer::new);
     }
