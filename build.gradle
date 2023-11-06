@@ -131,7 +131,7 @@ publishMods {
 		repository = 'AnAwesomGuy/wsmlmb'
 		announcementTitle = "Github Download"
 		commitish = github_branch
-		tagName = (type == STABLE ? "release" : type.toString().toLowerCase()) + '/' + version
+		tagName = release_type + '/' + version
 	}
 }
 
