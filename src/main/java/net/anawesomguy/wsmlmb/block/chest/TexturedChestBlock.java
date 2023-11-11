@@ -15,8 +15,11 @@ public class TexturedChestBlock extends ChestBlock {
 
     public TexturedChestBlock(Settings settings, ChestTriple normalTextures, ChestTriple christmasTextures) {
         super(settings, () -> WSMLMB.TEXTURED_CHEST_ENTITY_TYPE);
-        this.normalTextures = normalTextures == null ? (christmasTextures == null ? ChestTriple.getDefault() : christmasTextures) : normalTextures;
-        this.christmasTextures = christmasTextures == null ? (normalTextures == null ? ChestTriple.getDefaultChristmas() : normalTextures) : christmasTextures;
+        boolean noNormal = (normalTextures == null), noChristmas = (christmasTextures == null);
+        if (noNormal && noChristmas)
+            WSMLMB.LOGGER.warn("A TexturedChestBlock was created without any textures! Applying default textures.");
+        this.normalTextures = noNormal ? (noChristmas ? ChestTriple.getDefault() : christmasTextures) : normalTextures;
+        this.christmasTextures = noChristmas ? (noNormal ? ChestTriple.getDefaultChristmas() : normalTextures) : christmasTextures;
         WSMLMB.TEXTURED_CHESTS.add(this); // TODO: find a better way to run stuff on this on the client
     }
 

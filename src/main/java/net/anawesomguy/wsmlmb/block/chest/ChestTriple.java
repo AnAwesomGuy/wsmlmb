@@ -16,8 +16,8 @@ public record ChestTriple(Identifier singleTexture, Identifier leftTexture, Iden
      */
     private static final ChestTriple DEFAULT_TEXTURES = new ChestTriple(
         new Identifier("entity/chest/normal"),
-        new Identifier("entity/chest/left"),
-        new Identifier("entity/chest/right")
+        new Identifier("entity/chest/normal_left"),
+        new Identifier("entity/chest/normal_right")
     );
     /**
      * A {@link ChestTriple} storing the default textures for a chest when it is Christmas.
@@ -47,15 +47,15 @@ public record ChestTriple(Identifier singleTexture, Identifier leftTexture, Iden
     }
 
     public Identifier getSingle() {
-        return singleTexture;
+        return this.singleTexture;
     }
 
     public Identifier getLeft() {
-        return leftTexture;
+        return this.leftTexture;
     }
 
     public Identifier getRight() {
-        return rightTexture;
+        return this.rightTexture;
     }
 
     public boolean isDefault() {

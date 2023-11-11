@@ -18,6 +18,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import org.jetbrains.annotations.ApiStatus.Internal;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,6 +32,8 @@ import java.util.Set;
  */
 public final class WSMLMB implements ModInitializer {
     public static final String MOD_ID = "wsmlmb";
+    @Internal
+    public static final Logger LOGGER = LoggerFactory.getLogger("WSMLMB");
     /**
      * An {@link ArrayList} containing all instances of {@link MatchToolLootCondition} (done using a mixin to its {@link MatchToolLootCondition#MatchToolLootCondition(ItemPredicate) constructor}).
      * <p>
