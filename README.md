@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    implementation "maven.modrinth:wsmlmb:${wsmlmb_version}"
+    modImplementation "maven.modrinth:wsmlmb:${wsmlmb_version}"
 }
 ```
 
