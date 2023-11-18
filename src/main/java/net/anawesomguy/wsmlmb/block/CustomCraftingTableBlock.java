@@ -1,6 +1,5 @@
 package net.anawesomguy.wsmlmb.block;
 
-import net.anawesomguy.wsmlmb.util.WSMLMBUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CraftingTableBlock;
 import net.minecraft.entity.player.PlayerEntity;
@@ -8,17 +7,17 @@ import net.minecraft.screen.CraftingScreenHandler;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
-import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**
  * This is an implementation of {@link CraftingTableBlock} that overrides {@link CraftingTableBlock#createScreenHandlerFactory(BlockState, World, BlockPos) createScreenHandlerFactory} to return a custom {@link CraftingScreenHandler} that always works for this block.
  * <p>
- * So, you can just use this block to create a functional custom crafting table.
+ * So, you can just use this to create a functional custom crafting table.
  */
 public class CustomCraftingTableBlock extends CraftingTableBlock {
-    protected final MutableText titleText;
+    protected final Text titleText;
 
     /**
      * Creates a new instance of {@link CustomCraftingTableBlock} with the specified block settings and a default {@link CustomCraftingTableBlock#titleText} of "{@code container.crafting}".
@@ -31,10 +30,10 @@ public class CustomCraftingTableBlock extends CraftingTableBlock {
     /**
      * Creates a new instance of {@link CustomCraftingTableBlock} with the specified block settings and {@link CustomCraftingTableBlock#titleText}.
      * @param settings the block settings to make this block have.
-     * @param titleText the lang key of this block's screen's title.
+     * @param titleTextLangKey the lang key of this block's screen's title.
      */
-    public CustomCraftingTableBlock(Settings settings, String titleText) {
-        this(settings, WSMLMBUtil.toTranslatable(titleText));
+    public CustomCraftingTableBlock(Settings settings, String titleTextLangKey) {
+        this(settings, Text.translatable(titleTextLangKey));
     }
 
     /**
@@ -42,12 +41,12 @@ public class CustomCraftingTableBlock extends CraftingTableBlock {
      * @param settings the block settings to make this block have.
      * @param titleText the text of this block's screen's title.
      */
-    public CustomCraftingTableBlock(Settings settings, MutableText titleText) {
+    public CustomCraftingTableBlock(Settings settings, Text titleText) {
         super(settings);
         this.titleText = titleText;
     }
 
-    public MutableText getTitleText() {
+    public Text getTitleText() {
         return this.titleText;
     }
 

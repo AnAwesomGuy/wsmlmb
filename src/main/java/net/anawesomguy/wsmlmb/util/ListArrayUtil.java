@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Very simple class containing utilities for working with {@link List}s and Arrays.
+ */
 public final class ListArrayUtil {
     public static final Object[] EMPTY_ARRAY = {};
 

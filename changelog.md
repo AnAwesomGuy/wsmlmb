@@ -1,1 +1,1 @@
-fixed a small bug where the default chest textures were wrong
+port to 1.20.2+

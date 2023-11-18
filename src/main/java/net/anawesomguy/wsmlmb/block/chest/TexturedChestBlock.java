@@ -18,14 +18,14 @@ public class TexturedChestBlock extends ChestBlock {
         boolean noNormal = (normalTextures == null), noChristmas = (christmasTextures == null);
         if (noNormal && noChristmas)
             WSMLMB.LOGGER.warn("A TexturedChestBlock was created without any textures! Applying default textures.");
-        this.normalTextures = noNormal ? (noChristmas ? ChestTriple.getDefault() : christmasTextures) : normalTextures;
-        this.christmasTextures = noChristmas ? (noNormal ? ChestTriple.getDefaultChristmas() : normalTextures) : christmasTextures;
+        this.normalTextures = noNormal ? (noChristmas ? ChestTriple.DEFAULT_TEXTURES : christmasTextures) : normalTextures;
+        this.christmasTextures = noChristmas ? (noNormal ? ChestTriple.DEFAULT_CHRISTMAS_TEXTURES : normalTextures) : christmasTextures;
         WSMLMB.TEXTURED_CHESTS.add(this); // TODO: find a better way to run stuff on this on the client
     }
 
     @Override 
     public TexturedChestBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TexturedChestBlockEntity(pos, state, normalTextures, christmasTextures);
+        return new TexturedChestBlockEntity(pos, state, normalTextures.toSpriteIdentifiers(), christmasTextures.toSpriteIdentifiers());
     }
 
     /**
@@ -62,6 +62,9 @@ public class TexturedChestBlock extends ChestBlock {
 
         /**
          * Sets the textures of this chest (for when it is not Christmas). This will also set the {@link TexturedChestBlock#christmasTextures} if they have not been set already.
+         * <p>
+         * The textures must be in the chest atlas, or in the {@code entity/chest} directory.
+         *
          * @param single an {@link Identifier} for the texture for this chest when it is by itself.
          * @param left an {@link Identifier} for the texture for the left side of the double chest.
          * @param right an {@link Identifier} for the texture for the right side of the double chest.
@@ -74,6 +77,9 @@ public class TexturedChestBlock extends ChestBlock {
 
         /**
          * Sets the textures of this chest for when it is Christmas. This will also set the {@link TexturedChestBlock#normalTextures} if they have not been set already.
+         * <p>
+         * The textures must be in the chest atlas, or in the {@code entity/chest} directory.
+         *
          * @param single an {@link Identifier} for the texture for this chest when it is by itself.
          * @param left an {@link Identifier} for the texture for the left side of the double chest.
          * @param right an {@link Identifier} for the texture for the right side of the double chest.
@@ -84,10 +90,24 @@ public class TexturedChestBlock extends ChestBlock {
             return this;
         }
 
+        /**
+         * Sets the textures of this chest for when it is Christmas. This will also set the {@link TexturedChestBlock#normalTextures} if they have not been set already.
+         * <p>
+         * The textures must be in the chest atlas, or in the {@code entity/chest} directory.
+         *
+         * @param single an {@link Identifier} for the texture for this chest when it is by itself.
+         * @param left an {@link Identifier} for the texture for the left side of the double chest.
+         * @param right an {@link Identifier} for the texture for the right side of the double chest.
+         * @param christmas whether the textures to be set will be the ones for on Christmas.
+         * @return {@code this}, after the textures have been set.
+         */
         public Builder setTextures(Identifier single, Identifier left, Identifier right, boolean christmas) {
             return christmas ? setChristmasTextures(single, left, right) : setTextures(single, left, right);
         }
 
+        /**
+         * @return a new instance of {@link TexturedChestBlock} using this builder's settings and textures.
+         */
         public TexturedChestBlock build() {
             return new TexturedChestBlock(settings, normalTextures, christmasTextures);
         }
