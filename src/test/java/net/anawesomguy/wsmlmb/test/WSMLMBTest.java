@@ -8,7 +8,6 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ShearsItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -48,8 +47,8 @@ public final class WSMLMBTest implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        WSMLMBUtil.addToGroup(ItemGroups.FUNCTIONAL, CUSTOM_CRAFTING_TABLE_ITEM, STONE_CHEST_ITEM);
-        WSMLMBUtil.addToGroup(ItemGroups.TOOLS, TEST_SHEARS);
+        WSMLMBUtil.addToGroup("functional", CUSTOM_CRAFTING_TABLE_ITEM, STONE_CHEST_ITEM);
+        WSMLMBUtil.addToGroup("tools", TEST_SHEARS);
     }
 
     private static Identifier chestTexture(String textureName) {
