@@ -145,7 +145,7 @@ publishMods {
 		repository = 'AnAwesomGuy/wsmlmb'
 		announcementTitle = "Github Download"
 		commitish = github_branch
-		tagName = release_type + '/' + version
+		tagName = release_type + '/' + mod_version
 	}
 }
 
