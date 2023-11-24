@@ -19,7 +19,7 @@ import java.util.function.Function;
 import java.util.function.ToIntFunction;
 
 /**
- * A custom class for {@link AbstractBlock.Settings} for support over multiple versions.
+ * A custom class for {@link AbstractBlock.Settings} for support over multiple versions. If the method doesn't exist for that version, nothing will happen.
  */
 @SuppressWarnings({"deprecation", "UnstableApiUsage"})
 public class MultiVersionBlockSettings extends FabricBlockSettings {
