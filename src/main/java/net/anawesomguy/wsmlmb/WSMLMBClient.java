@@ -19,7 +19,7 @@ import net.minecraft.util.math.BlockPos;
  */
 @Environment(EnvType.CLIENT)
 public final class WSMLMBClient implements ClientModInitializer {
-    @Override
+    @Override @SuppressWarnings("deprecation") // needed for compatibility
     public void onInitializeClient() {
         // register chest item renderers
         for (TexturedChestBlock chest : WSMLMB.TEXTURED_CHESTS) {
@@ -27,7 +27,7 @@ public final class WSMLMBClient implements ClientModInitializer {
             if (item != Items.AIR && item != null) {
                 BlockEntity be = chest.createBlockEntity(BlockPos.ORIGIN, chest.getDefaultState());
                 BuiltinItemRendererRegistry.INSTANCE.register(item,
-                    (stack, mode, matrices, vertexConsumers, light, overlay) ->
+                    (stack, matrices, vertexConsumers, light, overlay) ->
                         MinecraftClient.getInstance()
                             .getBlockEntityRenderDispatcher()
                             .renderEntity(be, matrices, vertexConsumers, light, overlay)

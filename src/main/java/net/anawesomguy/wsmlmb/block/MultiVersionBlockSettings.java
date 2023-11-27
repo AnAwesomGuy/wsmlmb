@@ -23,8 +23,18 @@ import java.util.function.ToIntFunction;
  */
 @SuppressWarnings({"deprecation", "UnstableApiUsage"})
 public final class MultiVersionBlockSettings extends FabricBlockSettings {
-    private MultiVersionBlockSettings(Material material, MapColor mapColor) {
+    /**
+     * Be careful when using this constructor, as it does not exist on versions above 1.19.4. (23w16a to be exact)
+     */
+    public MultiVersionBlockSettings(Material material, MapColor mapColor) {
         super(material, mapColor);
+    }
+
+    /**
+     * Be careful when using this constructor, as it does not exist on versions above 1.19.4. (23w16a to be exact)
+     */
+    public MultiVersionBlockSettings(Material material, Function<BlockState, MapColor> mapColorProvider) {
+        super(material, mapColorProvider);
     }
 
     private MultiVersionBlockSettings(AbstractBlock.Settings settings) {
@@ -36,12 +46,60 @@ public final class MultiVersionBlockSettings extends FabricBlockSettings {
      * @return a new instance of {@link MultiVersionBlockSettings}.
      */
     public static MultiVersionBlockSettings create(String material) {
-        Material materialMaterial;
-        try {
-            materialMaterial = (Material)Material.class.getField(material.toUpperCase()).get(null);
-        } catch (ReflectiveOperationException e) {
-            throw new RuntimeException(e);
-        }
+        String materialString = material.replace(' ', '_').toUpperCase();
+        Material materialMaterial = switch (materialString) {
+            case "AIR" -> Material.AIR;
+            case "STRUCTURE_VOID" -> Material.STRUCTURE_VOID;
+            case "PORTAL" -> Material.PORTAL;
+            case "CARPET" -> Material.CARPET;
+            case "PLANT" -> Material.PLANT;
+            case "UNDERWATER_PLANT" -> Material.UNDERWATER_PLANT;
+            case "REPLACEABLE_PLANT" -> Material.REPLACEABLE_PLANT;
+            case "NETHER_SHOOTS" -> Material.NETHER_SHOOTS;
+            case "REPLACEABLE_UNDERWATER_PLANT" -> Material.REPLACEABLE_UNDERWATER_PLANT;
+            case "WATER" -> Material.WATER;
+            case "BUBBLE_COLUMN" -> Material.BUBBLE_COLUMN;
+            case "LAVA" -> Material.LAVA;
+            case "SNOW_LAYER" -> Material.SNOW_LAYER;
+            case "FIRE" -> Material.FIRE;
+            case "DECORATION" -> Material.DECORATION;
+            case "COBWEB" -> Material.COBWEB;
+            case "SCULK" -> Material.SCULK;
+            case "REDSTONE_LAMP" -> Material.REDSTONE_LAMP;
+            case "ORGANIC_PRODUCT" -> Material.ORGANIC_PRODUCT;
+            case "SOIL" -> Material.SOIL;
+            case "SOLID_ORGANIC" -> Material.SOLID_ORGANIC;
+            case "DENSE_ICE" -> Material.DENSE_ICE;
+            case "AGGREGATE" -> Material.AGGREGATE;
+            case "SPONGE" -> Material.SPONGE;
+            case "SHULKER_BOX" -> Material.SHULKER_BOX;
+            case "WOOD" -> Material.WOOD;
+            case "NETHER_WOOD" -> Material.NETHER_WOOD;
+            case "BAMBOO_SAPLING" -> Material.BAMBOO_SAPLING;
+            case "BAMBOO" -> Material.BAMBOO;
+            case "WOOL" -> Material.WOOL;
+            case "TNT" -> Material.TNT;
+            case "LEAVES" -> Material.LEAVES;
+            case "GLASS" -> Material.GLASS;
+            case "ICE" -> Material.ICE;
+            case "CACTUS" -> Material.CACTUS;
+            case "STONE" -> Material.STONE;
+            case "METAL" -> Material.METAL;
+            case "SNOW_BLOCK" -> Material.SNOW_BLOCK;
+            case "REPAIR_STATION" -> Material.REPAIR_STATION;
+            case "BARRIER" -> Material.BARRIER;
+            case "PISTON" -> Material.PISTON;
+            case "MOSS_BLOCK" -> Material.MOSS_BLOCK;
+            case "GOURD" -> Material.GOURD;
+            case "EGG" -> Material.EGG;
+            case "CAKE" -> Material.CAKE;
+            case "AMETHYST" -> Material.AMETHYST;
+            case "POWDER_SNOW" -> Material.POWDER_SNOW;
+            case "FROGSPAWN" -> Material.FROGSPAWN;
+            case "FROGLIGHT" -> Material.FROGLIGHT;
+            case "DECORATED_POT" -> Material.DECORATED_POT;
+            default -> throw new IllegalArgumentException(material);
+        };
         return new MultiVersionBlockSettings(materialMaterial, materialMaterial.getColor());
     }
 
