@@ -269,8 +269,8 @@ public final class MultiVersionBlockSettings extends FabricBlockSettings {
     }
 
 
-    public MultiVersionBlockSettings requires(FeatureFlag... features) {
-        super.requires(features);
+    public MultiVersionBlockSettings requires(Object... features) {
+        super.requires((FeatureFlag[])features);
         return this;
     }
 
