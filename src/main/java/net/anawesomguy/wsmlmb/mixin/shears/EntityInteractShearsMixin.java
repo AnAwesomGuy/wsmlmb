@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin({SheepEntity.class, SnowGolemEntity.class, MooshroomEntity.class})
 public abstract class EntityInteractShearsMixin {
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"), method = "interactMob")
-    private boolean stone_utils$isShears(ItemStack stack, Item item) {
+    private boolean wsmlmb$isShears(ItemStack stack, Item item) {
         // allows anything in c:shears to shear sheep and snow golems
         return stack.isOf(item) || (item == Items.SHEARS && stack.isIn(ConventionalItemTags.SHEARS));
     }

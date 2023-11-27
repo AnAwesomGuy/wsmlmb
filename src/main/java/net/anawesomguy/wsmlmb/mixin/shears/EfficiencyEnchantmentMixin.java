@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(EfficiencyEnchantment.class)
 public abstract class EfficiencyEnchantmentMixin {
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"), method = "isAcceptableItem")
-    private boolean stone_utils$isShears(ItemStack stack, Item item) {
+    private boolean wsmlmb$isShears(ItemStack stack, Item item) {
         // allows anything in c:shears to be enchanted with efficiency
         return stack.isOf(item) || (item == Items.SHEARS && stack.isIn(ConventionalItemTags.SHEARS));
     }

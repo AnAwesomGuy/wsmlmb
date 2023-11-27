@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(TripwireBlock.class)
 public abstract class TripwireBlockMixin {
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"), method = "onBreak")
-    private boolean stone_utils$isShears(ItemStack stack, Item item) {
+    private boolean wsmlmb$isShears(ItemStack stack, Item item) {
         // allows anything in c:shears to silently break tripwire (string)
         return stack.isOf(item) || (item == Items.SHEARS && stack.isIn(ConventionalItemTags.SHEARS));
     }

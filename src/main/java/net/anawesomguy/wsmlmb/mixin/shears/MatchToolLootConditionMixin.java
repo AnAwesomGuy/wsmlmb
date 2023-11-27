@@ -28,7 +28,7 @@ public abstract class MatchToolLootConditionMixin implements LootCondition {
     @Unique private static final List<ItemPredicate> MATCH_TOOL_PREDICATES = new ArrayList<>();
 
     @Inject(at = @At("RETURN"), method = "<init>")
-    private void stone_utils$shearsLoot(CallbackInfo ci) {
+    private void wsmlmb$shearsLoot(CallbackInfo ci) {
         // allows anything in c:shears to mine grass (and other stuff) and it will drop
         if (predicate.items != null) MATCH_TOOL_PREDICATES.add(predicate);
     }
