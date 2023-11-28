@@ -18,14 +18,14 @@ public class TexturedChestBlock extends ChestBlock {
         boolean noNormal = (normalTextures == null), noChristmas = (christmasTextures == null);
         if (noNormal && noChristmas)
             WSMLMB.LOGGER.warn("A TexturedChestBlock was created without any textures! Applying default textures.");
-        this.normalTextures = noNormal ? (noChristmas ? ChestTriple.getDefault() : christmasTextures) : normalTextures;
-        this.christmasTextures = noChristmas ? (noNormal ? ChestTriple.getDefaultChristmas() : normalTextures) : christmasTextures;
+        this.normalTextures = noNormal ? (noChristmas ? ChestTriple.DEFAULT_TEXTURES : christmasTextures) : normalTextures;
+        this.christmasTextures = noChristmas ? (noNormal ? ChestTriple.DEFAULT_CHRISTMAS_TEXTURES : normalTextures) : christmasTextures;
         WSMLMB.TEXTURED_CHESTS.add(this); // TODO: find a better way to run stuff on this on the client
     }
 
-    @Override 
+    @Override
     public TexturedChestBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TexturedChestBlockEntity(pos, state, normalTextures, christmasTextures);
+        return new TexturedChestBlockEntity(pos, state, normalTextures.toSpriteIdentifiers(), christmasTextures.toSpriteIdentifiers());
     }
 
     /**

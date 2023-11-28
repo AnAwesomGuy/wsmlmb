@@ -1,7 +1,7 @@
 package net.anawesomguy.wsmlmb;
 
 import com.ibm.icu.impl.CollectionSet;
-import net.anawesomguy.wsmlmb.block.chest.ChestTriple;
+import net.anawesomguy.wsmlmb.block.chest.ChestTriple.Sprite;
 import net.anawesomguy.wsmlmb.block.chest.TexturedChestBlock;
 import net.anawesomguy.wsmlmb.block.chest.TexturedChestBlockEntity;
 import net.fabricmc.api.ModInitializer;
@@ -14,7 +14,6 @@ import net.minecraft.item.Items;
 import net.minecraft.loot.condition.MatchToolLootCondition;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import org.jetbrains.annotations.ApiStatus.Internal;
@@ -49,15 +48,12 @@ public final class WSMLMB implements ModInitializer {
     public static final BlockEntityType<TexturedChestBlockEntity> TEXTURED_CHEST_ENTITY_TYPE = Registry.register(
         Registry.BLOCK_ENTITY_TYPE,
         new Identifier(MOD_ID, "textured_chest"),
-        new BlockEntityType<>(null, new CollectionSet<>(Collections.unmodifiableCollection(TEXTURED_CHESTS)), null) {
+        new BlockEntityType<>((pos, state) -> new TexturedChestBlockEntity(pos, state, Sprite.DEFAULT_TEXTURES, Sprite.DEFAULT_CHRISTMAS_TEXTURES),
+            new CollectionSet<>(Collections.unmodifiableCollection(TEXTURED_CHESTS)), null
+        ) {
             @Override
             public boolean supports(BlockState state) {
                 return state.getBlock() instanceof TexturedChestBlock;
-            }
-
-            @Override
-            public TexturedChestBlockEntity instantiate(BlockPos pos, BlockState state) {
-                return new TexturedChestBlockEntity(pos, state, ChestTriple.getDefault(), ChestTriple.getDefaultChristmas());
             }
         }
     );

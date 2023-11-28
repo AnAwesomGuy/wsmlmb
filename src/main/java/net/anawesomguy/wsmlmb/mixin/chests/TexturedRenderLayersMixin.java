@@ -14,17 +14,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(TexturedRenderLayers.class)
 public abstract class TexturedRenderLayersMixin {
     @Inject(at = @At("HEAD"), method = "getChestTexture(Lnet/minecraft/block/entity/BlockEntity;Lnet/minecraft/block/enums/ChestType;Z)Lnet/minecraft/client/util/SpriteIdentifier;", cancellable = true)
-    private static void stone_utils$addChestTexture(BlockEntity blockEntity, ChestType type, boolean christmas, CallbackInfoReturnable<SpriteIdentifier> cir) {
+    private static void wsmlmb$addChestTexture(BlockEntity blockEntity, ChestType type, boolean christmas, CallbackInfoReturnable<SpriteIdentifier> cir) {
         // used so chests can have custom textures when rendering
         if (blockEntity instanceof TexturedChestBlockEntity chestBlockEntity) {
-            ChestTriple triple = chestBlockEntity.getTextures(christmas);
+            ChestTriple.Sprite triple = chestBlockEntity.getTextures(christmas);
             switch (type) {
-                case LEFT ->
-                    cir.setReturnValue(new SpriteIdentifier(TexturedRenderLayers.CHEST_ATLAS_TEXTURE, triple.getLeft()));
-                case RIGHT ->
-                    cir.setReturnValue(new SpriteIdentifier(TexturedRenderLayers.CHEST_ATLAS_TEXTURE, triple.getRight()));
-                default ->
-                    cir.setReturnValue(new SpriteIdentifier(TexturedRenderLayers.CHEST_ATLAS_TEXTURE, triple.getSingle()));
+                case LEFT -> cir.setReturnValue(triple.getLeft());
+                case RIGHT -> cir.setReturnValue(triple.getRight());
+                default -> cir.setReturnValue(triple.getSingle());
             }
         }
     }

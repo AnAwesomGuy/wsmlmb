@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MatchToolLootCondition.class)
 public abstract class MatchToolLootConditionMixin implements LootCondition {
     @Inject(at = @At("RETURN"), method = "<init>")
-    private void stone_utils$shearsLoot(CallbackInfo ci) {
+    private void wsmlmb$shearsLoot(CallbackInfo ci) {
         // allows anything in c:shears to mine grass (and other stuff) and it will drop
         WSMLMB.MATCH_TOOL_INSTANCES.add((MatchToolLootCondition)(Object)this);
     }

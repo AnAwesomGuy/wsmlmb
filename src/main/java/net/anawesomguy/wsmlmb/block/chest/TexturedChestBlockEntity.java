@@ -8,31 +8,31 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.ApiStatus.Internal;
 
 public class TexturedChestBlockEntity extends ChestBlockEntity {
-    private final ChestTriple christmasTextures;
-    private final ChestTriple normalTextures;
+    private final ChestTriple.Sprite christmasTextures;
+    private final ChestTriple.Sprite normalTextures;
 
-    protected TexturedChestBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, ChestTriple normalTextures, ChestTriple christmasTextures) {
+    protected TexturedChestBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, ChestTriple.Sprite normalTextures, ChestTriple.Sprite christmasTextures) {
         super(type, pos, state);
         this.normalTextures = normalTextures;
         this.christmasTextures = christmasTextures;
     }
 
     @Internal // don't use this unless you really know what you're doing
-    public TexturedChestBlockEntity(BlockPos pos, BlockState state, ChestTriple normalTextures, ChestTriple christmasTextures) {
+    public TexturedChestBlockEntity(BlockPos pos, BlockState state, ChestTriple.Sprite normalTextures, ChestTriple.Sprite christmasTextures) {
         this(WSMLMB.TEXTURED_CHEST_ENTITY_TYPE, pos, state, normalTextures, christmasTextures);
     }
 
     /**
-     * @return a {@link ChestTriple} of the textures used for this chest when it is Christmas.
+     * @return the textures used for this chest when it is Christmas.
      */
-    public ChestTriple getChristmasTextures() {
+    public ChestTriple.Sprite getChristmasTextures() {
         return christmasTextures;
     }
 
     /**
-     * @return a {@link ChestTriple} of the textures used for this chest when it is not Christmas.
+     * @return the textures used for this chest when it is not Christmas.
      */
-    public ChestTriple getTextures() {
+    public ChestTriple.Sprite getTextures() {
         return normalTextures;
     }
 
@@ -40,7 +40,7 @@ public class TexturedChestBlockEntity extends ChestBlockEntity {
      * @param christmas if the textures returned will be for Christmas.
      * @return a {@link ChestTriple} of the textures used for this chest.
      */
-    public ChestTriple getTextures(boolean christmas) {
+    public ChestTriple.Sprite getTextures(boolean christmas) {
         return christmas ? christmasTextures : normalTextures;
     }
 }
