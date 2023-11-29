@@ -17,7 +17,7 @@ public abstract class DispenserBlockMixin {
         // allows anything in c:shears to have the dispenser behavior of shears
         // if there isn't a dispenser behavior already registered
         if ((cir.getReturnValue() == DispenserBehavior.NOOP ||
-            cir.getReturnValue() == null) &&
+             cir.getReturnValue() == null) &&
             stack.isIn(ConventionalItemTags.SHEARS)
         ) cir.setReturnValue(new ShearsDispenserBehavior());
     }

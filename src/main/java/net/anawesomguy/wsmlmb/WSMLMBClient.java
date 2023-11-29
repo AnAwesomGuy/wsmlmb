@@ -29,8 +29,8 @@ public final class WSMLMBClient implements ClientModInitializer {
                 BuiltinItemRendererRegistry.INSTANCE.register(item,
                     (stack, matrices, vertexConsumers, light, overlay) ->
                         MinecraftClient.getInstance()
-                            .getBlockEntityRenderDispatcher()
-                            .renderEntity(be, matrices, vertexConsumers, light, overlay)
+                           .getBlockEntityRenderDispatcher()
+                           .renderEntity(be, matrices, vertexConsumers, light, overlay)
                 );
             }
         }

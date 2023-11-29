@@ -23,9 +23,10 @@ import java.util.List;
 
 @Mixin(MatchToolLootCondition.class)
 public abstract class MatchToolLootConditionMixin implements LootCondition {
-    @SuppressWarnings("ShadowModifiers")
-    @Shadow @Final private ItemPredicate predicate;
-    @Unique private static final List<ItemPredicate> MATCH_TOOL_PREDICATES = new ArrayList<>();
+    @Unique
+    private static final List<ItemPredicate> MATCH_TOOL_PREDICATES = new ArrayList<>();
+    @Shadow @Final @SuppressWarnings("ShadowModifiers")
+    private ItemPredicate predicate;
 
     @Inject(at = @At("RETURN"), method = "<init>")
     private void wsmlmb$shearsLoot(CallbackInfo ci) {

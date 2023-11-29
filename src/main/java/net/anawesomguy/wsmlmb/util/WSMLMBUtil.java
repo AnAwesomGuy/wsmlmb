@@ -86,8 +86,14 @@ public final class WSMLMBUtil {
         return ItemGroupEvents.modifyEntriesEvent(group);
     }
 
+    /**
+     * Gets an item group with the specified name from the {@link ItemGroups} class.
+     *
+     * @param name the name of the item group to get.
+     * @return an item group with name {@code name}, or null if it cannot find one. Is always an {@link ItemGroup} in this version.
+     */
     public static Object getItemGroup(String name) {
-        if ((name = Objects.requireNonNull(name).toLowerCase()).startsWith("minecraft:"))
+        if ((name = Objects.requireNonNull(name).toLowerCase().replace(' ', '_')).startsWith("minecraft:"))
             name = name.substring(10);
         return switch (name) {
             case "building_blocks" -> ItemGroups.BUILDING_BLOCKS;

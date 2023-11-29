@@ -1,28 +1,28 @@
 {
-  "schemaVersion": 1,
-  "id": "wsmlmb",
-  "version": "${version}",
-  "name": "what should my library mod be?",
-  "description": "This is just another library mod, nothing special.",
-  "authors": ["AnAwesomGuy"],
-  "contact": {
-    "homepage": "https://modrinth.com/mod/wsmlmb",
-    "issues": "https://github.com/AnAwesomGuy/wsmlmb/issues",
-    "sources": "https://github.com/AnAwesomGuy/wsmlmb"
-  },
-  "license": "Apache License, Version 2.0",
-  "icon": "assets/wsmlmb/icon.png",
-  "accessWidener": "wsmlmb.accesswidener",
-  "environment": "*",
-  "entrypoints": {
-    "main": ["net.anawesomguy.wsmlmb.WSMLMB"],
-    "client": ["net.anawesomguy.wsmlmb.WSMLMBClient"]
-  },
-  "mixins": ["wsmlmb.mixins.json"],
-  "depends": {
-    "fabricloader": ">=0.14.14",
-    "fabric": "*",
-    "minecraft": "${range}",
-    "java": ">=17"
-  }
+    "schemaVersion": 1,
+    "id": "wsmlmb",
+    "version": "${version}",
+    "name": "what should my library mod be?",
+    "description": "This is just another library mod, nothing special.",
+    "authors": ["AnAwesomGuy"],
+    "contact": {
+        "homepage": "https://modrinth.com/mod/wsmlmb",
+        "issues": "https://github.com/AnAwesomGuy/wsmlmb/issues",
+        "sources": "https://github.com/AnAwesomGuy/wsmlmb"
+    },
+    "license": "Apache License, Version 2.0",
+    "icon": "assets/wsmlmb/icon.png",
+    "accessWidener": "wsmlmb.accesswidener",
+    "environment": "*",
+    "entrypoints": {
+        "main": ["net.anawesomguy.wsmlmb.WSMLMB"],
+        "client": ["net.anawesomguy.wsmlmb.WSMLMBClient"]
+    },
+    "mixins": ["wsmlmb.mixins.json"],
+    "depends": {
+        "fabricloader": ">=0.14.14",
+        "fabric": "*",
+        "minecraft": "${range}",
+        "java": ">=17"
+    }
 }

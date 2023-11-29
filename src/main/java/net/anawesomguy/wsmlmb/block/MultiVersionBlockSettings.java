@@ -24,24 +24,6 @@ import java.util.function.ToIntFunction;
 @SuppressWarnings({"deprecation", "UnstableApiUsage"})
 public final class MultiVersionBlockSettings extends FabricBlockSettings {
     /**
-     * Be careful when using this constructor, as it does not exist on versions above 1.19.4. (23w16a to be exact)
-     */
-    public MultiVersionBlockSettings(Material material, MapColor mapColor) {
-        super(material, mapColor);
-    }
-
-    /**
-     * Be careful when using this constructor, as it does not exist on versions above 1.19.4. (23w16a to be exact)
-     */
-    public MultiVersionBlockSettings(Material material, Function<BlockState, MapColor> mapColorProvider) {
-        super(material, mapColorProvider);
-    }
-
-    private MultiVersionBlockSettings(AbstractBlock.Settings settings) {
-        super(settings);
-    }
-
-    /**
      * @param material the material to make this settings out of. Must be a field of the {@code Material}s class. If the {@code Material}s class doesn't exist, this parameter is ignored.
      * @return a new instance of {@link MultiVersionBlockSettings}.
      */
@@ -116,6 +98,24 @@ public final class MultiVersionBlockSettings extends FabricBlockSettings {
 
     public static MultiVersionBlockSettings copyOf(AbstractBlock.Settings settings) {
         return new MultiVersionBlockSettings(settings);
+    }
+
+    /**
+     * Be careful when using this constructor, as it does not exist on versions above 1.19.4. (23w16a to be exact)
+     */
+    public MultiVersionBlockSettings(Material material, MapColor mapColor) {
+        super(material, mapColor);
+    }
+
+    /**
+     * Be careful when using this constructor, as it does not exist on versions above 1.19.4. (23w16a to be exact)
+     */
+    public MultiVersionBlockSettings(Material material, Function<BlockState, MapColor> mapColorProvider) {
+        super(material, mapColorProvider);
+    }
+
+    private MultiVersionBlockSettings(AbstractBlock.Settings settings) {
+        super(settings);
     }
 
     public MultiVersionBlockSettings noCollision() {
@@ -268,46 +268,6 @@ public final class MultiVersionBlockSettings extends FabricBlockSettings {
         return this;
     }
 
-
-    public MultiVersionBlockSettings requires(Object... features) {
-        super.requires((FeatureFlag[])features);
-        return this;
-    }
-
-    public MultiVersionBlockSettings mapColor(Function<BlockState, MapColor> mapColorProvider) {
-        return this;
-    }
-
-    public MultiVersionBlockSettings burnable() {
-        return this;
-    }
-
-    public MultiVersionBlockSettings liquid() {
-        return this;
-    }
-
-    public MultiVersionBlockSettings solid() {
-        return this;
-    }
-
-    public MultiVersionBlockSettings notSolid() {
-        return this;
-    }
-
-    public MultiVersionBlockSettings pistonBehavior(PistonBehavior pistonBehavior) {
-        return this;
-    }
-
-    public MultiVersionBlockSettings instrument(Instrument instrument) {
-        return this;
-    }
-
-    public MultiVersionBlockSettings replaceable() {
-        return this;
-    }
-
-    /* FABRIC ADDITIONS */
-
     /**
      * @deprecated Please use {@link MultiVersionBlockSettings#luminance(int)}.
      */
@@ -326,8 +286,6 @@ public final class MultiVersionBlockSettings extends FabricBlockSettings {
         super.drops(dropTableId);
         return this;
     }
-
-    /* FABRIC DELEGATE WRAPPERS */
 
     /**
      * @deprecated Please migrate to {@link MultiVersionBlockSettings#mapColor(MapColor)}
@@ -351,6 +309,47 @@ public final class MultiVersionBlockSettings extends FabricBlockSettings {
 
     public MultiVersionBlockSettings collidable(boolean collidable) {
         super.collidable(collidable);
+        return this;
+    }
+
+    public MultiVersionBlockSettings requires(Object... features) {
+        super.requires((FeatureFlag[])features);
+        return this;
+    }
+
+    public MultiVersionBlockSettings mapColor(Function<BlockState, MapColor> mapColorProvider) {
+        return this;
+    }
+
+    /* FABRIC ADDITIONS */
+
+    public MultiVersionBlockSettings burnable() {
+        return this;
+    }
+
+    public MultiVersionBlockSettings liquid() {
+        return this;
+    }
+
+    public MultiVersionBlockSettings solid() {
+        return this;
+    }
+
+    /* FABRIC DELEGATE WRAPPERS */
+
+    public MultiVersionBlockSettings notSolid() {
+        return this;
+    }
+
+    public MultiVersionBlockSettings pistonBehavior(PistonBehavior pistonBehavior) {
+        return this;
+    }
+
+    public MultiVersionBlockSettings instrument(Instrument instrument) {
+        return this;
+    }
+
+    public MultiVersionBlockSettings replaceable() {
         return this;
     }
 }

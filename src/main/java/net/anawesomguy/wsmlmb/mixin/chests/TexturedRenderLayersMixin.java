@@ -19,12 +19,9 @@ public abstract class TexturedRenderLayersMixin {
         if (blockEntity instanceof TexturedChestBlockEntity chestBlockEntity) {
             ChestTriple.Sprite triple = chestBlockEntity.getTextures(christmas);
             switch (type) {
-                case LEFT ->
-                    cir.setReturnValue(triple.getLeft());
-                case RIGHT ->
-                    cir.setReturnValue(triple.getRight());
-                default ->
-                    cir.setReturnValue(triple.getSingle());
+                case LEFT -> cir.setReturnValue(triple.getLeft());
+                case RIGHT -> cir.setReturnValue(triple.getRight());
+                default -> cir.setReturnValue(triple.getSingle());
             }
         }
     }

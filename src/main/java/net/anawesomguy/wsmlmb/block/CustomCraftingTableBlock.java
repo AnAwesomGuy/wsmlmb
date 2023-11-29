@@ -21,6 +21,7 @@ public class CustomCraftingTableBlock extends CraftingTableBlock {
 
     /**
      * Creates a new instance of {@link CustomCraftingTableBlock} with the specified block settings and a default {@link CustomCraftingTableBlock#titleText} of "{@code container.crafting}".
+     *
      * @param settings the block settings to make this block have.
      */
     public CustomCraftingTableBlock(Settings settings) {
@@ -29,7 +30,8 @@ public class CustomCraftingTableBlock extends CraftingTableBlock {
 
     /**
      * Creates a new instance of {@link CustomCraftingTableBlock} with the specified block settings and {@link CustomCraftingTableBlock#titleText}.
-     * @param settings the block settings to make this block have.
+     *
+     * @param settings         the block settings to make this block have.
      * @param titleTextLangKey the lang key of this block's screen's title.
      */
     public CustomCraftingTableBlock(Settings settings, String titleTextLangKey) {
@@ -38,7 +40,8 @@ public class CustomCraftingTableBlock extends CraftingTableBlock {
 
     /**
      * Creates a new instance of {@link CustomCraftingTableBlock} with the specified block settings and {@link CustomCraftingTableBlock#titleText}.
-     * @param settings the block settings to make this block have.
+     *
+     * @param settings  the block settings to make this block have.
      * @param titleText the text of this block's screen's title.
      */
     public CustomCraftingTableBlock(Settings settings, Text titleText) {

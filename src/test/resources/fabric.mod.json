@@ -1,24 +1,24 @@
 {
-  "schemaVersion": 1,
-  "id": "wsmlmb-testmod",
-  "version": "${version}",
-  "name": "testmod for \"what should my library mod be?\"",
-  "description": "This is just another test mod for a library mod, nothing special.",
-  "authors": ["AnAwesomGuy"],
-  "contact": {
-    "issues": "https://github.com/AnAwesomGuy/wsmlmb/issues",
-    "sources": "https://github.com/AnAwesomGuy/wsmlmb"
-  },
-  "license": "Apache License, Version 2.0",
-  "environment": "*",
-  "entrypoints": {
-    "main": ["net.anawesomguy.wsmlmb.test.WSMLMBTest"]
-  },
-  "depends": {
-    "fabricloader": ">=0.14.14",
-    "fabric-api": "*",
-    "minecraft": "${range}",
-    "java": ">=17",
-    "wsmlmb": "${version}"
-  }
+    "schemaVersion": 1,
+    "id": "wsmlmb-testmod",
+    "version": "${version}",
+    "name": "testmod for \"what should my library mod be?\"",
+    "description": "This is just another test mod for a library mod, nothing special.",
+    "authors": ["AnAwesomGuy"],
+    "contact": {
+        "issues": "https://github.com/AnAwesomGuy/wsmlmb/issues",
+        "sources": "https://github.com/AnAwesomGuy/wsmlmb"
+    },
+    "license": "Apache License, Version 2.0",
+    "environment": "*",
+    "entrypoints": {
+        "main": ["net.anawesomguy.wsmlmb.test.WSMLMBTest"]
+    },
+    "depends": {
+        "fabricloader": ">=0.14.14",
+        "fabric-api": "*",
+        "minecraft": "${range}",
+        "java": ">=17",
+        "wsmlmb": "${version}"
+    }
 }

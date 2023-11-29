@@ -108,9 +108,9 @@ public record ChestTriple(Identifier singleTexture, Identifier leftTexture, Iden
 
         public Sprite(Identifier singleTexture, Identifier leftTexture, Identifier rightTexture) {
             this(
-                new SpriteIdentifier(CHEST_ATLAS_TEXTURE, requireNonNull(singleTexture, "singleTexture cannot be null")),
-                new SpriteIdentifier(CHEST_ATLAS_TEXTURE, requireNonNull(leftTexture, "leftTexture cannot be null")),
-                new SpriteIdentifier(CHEST_ATLAS_TEXTURE, requireNonNull(rightTexture, "rightTexture cannot be null"))
+                    new SpriteIdentifier(CHEST_ATLAS_TEXTURE, requireNonNull(singleTexture, "singleTexture cannot be null")),
+                    new SpriteIdentifier(CHEST_ATLAS_TEXTURE, requireNonNull(leftTexture, "leftTexture cannot be null")),
+                    new SpriteIdentifier(CHEST_ATLAS_TEXTURE, requireNonNull(rightTexture, "rightTexture cannot be null"))
             );
         }
 
