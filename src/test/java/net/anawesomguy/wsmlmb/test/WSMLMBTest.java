@@ -19,7 +19,7 @@ public final class WSMLMBTest implements ModInitializer {
     public static final Block STONE_CHEST = Registry.register(
         Registries.BLOCK,
         new Identifier(MOD_ID, "stone_chest"),
-        new TexturedChestBlock.Builder(MultiVersionBlockSettings.of().strength(1.5F, 6).requiresTool())
+        new TexturedChestBlock.Builder(MultiVersionBlockSettings.of("stone").strength(1.5F, 6).requiresTool())
             .setTextures(chestTexture("stone"), chestTexture("stone_left"), chestTexture("stone_right")) // sets the textures
             .build()
     );
@@ -31,7 +31,7 @@ public final class WSMLMBTest implements ModInitializer {
     public static final Block CUSTOM_CRAFTING_TABLE = Registry.register(
         Registries.BLOCK,
         new Identifier(MOD_ID, "custom_crafting_table"),
-        new CustomCraftingTableBlock(MultiVersionBlockSettings.of())
+        new CustomCraftingTableBlock(MultiVersionBlockSettings.of("wood"))
     );
     public static final Item CUSTOM_CRAFTING_TABLE_ITEM = Registry.register(
         Registries.ITEM,
