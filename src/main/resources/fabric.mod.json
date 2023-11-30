@@ -21,7 +21,7 @@
   "mixins": ["wsmlmb.mixins.json"],
   "depends": {
     "fabricloader": ">=0.14.14",
-    "fabric": "*",
+    "fabric-api": "*",
     "minecraft": "${range}",
     "java": ">=17"
   }
