@@ -21,12 +21,12 @@ import java.util.function.ToIntFunction;
  * A custom class for {@link AbstractBlock.Settings} for support over multiple versions.
  */
 @SuppressWarnings({"deprecation", "UnstableApiUsage"})
-public class MultiVersionBlockSettings extends FabricBlockSettings {
-    protected MultiVersionBlockSettings(String material) {
+public final class MultiVersionBlockSettings extends FabricBlockSettings {
+    private MultiVersionBlockSettings() {
         super();
     }
 
-    protected MultiVersionBlockSettings(AbstractBlock.Settings settings) {
+    private MultiVersionBlockSettings(AbstractBlock.Settings settings) {
         super(settings);
     }
 
@@ -35,14 +35,14 @@ public class MultiVersionBlockSettings extends FabricBlockSettings {
      * @return a new instance of {@link MultiVersionBlockSettings}.
      */
     public static MultiVersionBlockSettings create(String material) {
-        return new MultiVersionBlockSettings(material);
+        return new MultiVersionBlockSettings();
     }
 
     /**
      * @see MultiVersionBlockSettings#create(String)
      */
     public static MultiVersionBlockSettings of(String material) {
-        return create(material);
+        return new MultiVersionBlockSettings();
     }
 
     public static MultiVersionBlockSettings copyOf(AbstractBlock block) {
