@@ -1,5 +1,8 @@
 package net.anawesomguy.wsmlmb.util;
 
+import net.fabricmc.fabric.api.event.Event;
+import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.ItemStack;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.TextContent;
 import net.minecraft.text.TranslatableTextContent;
@@ -25,5 +28,23 @@ public final class WSMLMBUtil {
         else {
             return MutableText.of((TextContent)temp);
         }
+    }
+
+    public static void addToGroup(Object itemGroup, ItemConvertible... items) {
+    }
+
+    public static void addToGroup(Object itemGroup, ItemStack... items) {
+    }
+
+    public static Event<?> getModifyEntriesEvent(Object itemGroup) {
+        return null;
+    }
+
+    public static Object getItemGroup(String name) {
+        return null;
+    }
+
+    private WSMLMBUtil() {
+        throw new AssertionError("Cannot instantiate WSMLMBUtil!");
     }
 }
