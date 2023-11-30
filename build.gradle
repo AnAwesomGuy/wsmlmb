@@ -133,12 +133,13 @@ publishMods {
 
         boolean matches
         for (MinecraftApi.Version versionVersion in new MinecraftApi().versions.reverse()) {
-            if (versionVersion.id == version_end)
-                break
             if (versionVersion.id == version_start)
+                //noinspection GroovyUnusedAssignment
                 matches = true
             if (matches && versionVersion.type == "release")
                 minecraftVersions.add versionVersion.id
+            if (versionVersion.id == version_end)
+                break
         }
 
         requires {
