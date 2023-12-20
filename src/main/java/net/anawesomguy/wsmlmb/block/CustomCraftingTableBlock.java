@@ -1,5 +1,8 @@
 package net.anawesomguy.wsmlmb.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.anawesomguy.wsmlmb.util.WSMLMBUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CraftingTableBlock;
 import net.minecraft.entity.player.PlayerEntity;
@@ -8,6 +11,7 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.text.Text;
+import net.minecraft.text.TextCodecs;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -17,6 +21,13 @@ import net.minecraft.world.World;
  * So, you can just use this to create a functional custom crafting table.
  */
 public class CustomCraftingTableBlock extends CraftingTableBlock {
+    public static final MapCodec<CustomCraftingTableBlock> CODEC = RecordCodecBuilder.mapCodec(
+        instance -> instance.group(
+            createSettingsCodec(),
+            TextCodecs.CODEC.optionalFieldOf("title_text", Text.translatable("container.crafting")).forGetter(CustomCraftingTableBlock::getTitleText)
+        ).apply(instance, CustomCraftingTableBlock::new)
+    );
+
     protected final Text titleText;
 
     /**
@@ -33,7 +44,7 @@ public class CustomCraftingTableBlock extends CraftingTableBlock {
      * @param titleTextLangKey the lang key of this block's screen's title.
      */
     public CustomCraftingTableBlock(Settings settings, String titleTextLangKey) {
-        this(settings, Text.translatable(titleTextLangKey));
+        this(settings, WSMLMBUtil.toTranslatable(titleTextLangKey));
     }
 
     /**
@@ -63,5 +74,10 @@ public class CustomCraftingTableBlock extends CraftingTableBlock {
                 };
             }, titleText
         );
+    }
+
+    @Override
+    public MapCodec<? extends CraftingTableBlock> getCodec() {
+        return CODEC;
     }
 }
