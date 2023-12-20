@@ -1,5 +1,7 @@
 package net.anawesomguy.wsmlmb.block.chest;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.anawesomguy.wsmlmb.WSMLMB;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
@@ -8,6 +10,18 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 
 public class TexturedChestBlock extends ChestBlock {
+    public static final MapCodec<TexturedChestBlock> CODEC = RecordCodecBuilder.mapCodec(
+        instance -> instance.group(
+            createSettingsCodec(),
+            ChestTriple.CODEC
+                       .optionalFieldOf("normal_textures", null)
+                       .forGetter(TexturedChestBlock::getTextures),
+            ChestTriple.CODEC
+                       .optionalFieldOf("christmas_textures", null)
+                       .forGetter(TexturedChestBlock::getChristmasTextures)
+        ).apply(instance, TexturedChestBlock::new)
+    );
+
     @NotNull
     private final ChestTriple normalTextures;
     @NotNull
@@ -44,6 +58,11 @@ public class TexturedChestBlock extends ChestBlock {
 
     public @NotNull ChestTriple getTextures(boolean christmas) {
         return christmas ? christmasTextures : normalTextures;
+    }
+
+//    @Override // this is bcuz this doesnt override in earlier versions
+    public MapCodec<? extends ChestBlock> getCodec() {
+        return CODEC;
     }
 
     /**

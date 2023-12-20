@@ -1,5 +1,7 @@
 package net.anawesomguy.wsmlmb.block.chest;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
 
@@ -14,6 +16,13 @@ import static net.minecraft.client.render.TexturedRenderLayers.*;
  * @see TexturedChestBlock#getTextures(boolean)
  */
 public record ChestTriple(Identifier singleTexture, Identifier leftTexture, Identifier rightTexture) {
+    public static final Codec<ChestTriple> CODEC = RecordCodecBuilder.create(
+        instance -> instance.group(
+            Identifier.CODEC.fieldOf("single").forGetter(ChestTriple::getSingle),
+            Identifier.CODEC.fieldOf("left").forGetter(ChestTriple::getLeft),
+            Identifier.CODEC.fieldOf("right").forGetter(ChestTriple::getRight)
+        ).apply(instance, ChestTriple::new)
+    );
     /**
      * A {@link ChestTriple} storing the default textures for a chest.
      */
