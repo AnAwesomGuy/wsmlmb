@@ -68,7 +68,7 @@ public class TexturedChestBlock extends ChestBlock {
     /**
      * A builder class for {@link TexturedChestBlock}, since blocks should be immutable.
      * <p>
-     * You can use the {@link TexturedChestBlock#TexturedChestBlock(Settings, ChestTriple, ChestTriple) constructor} manually, but this is the recommended way.
+     * You can use the {@linkplain TexturedChestBlock#TexturedChestBlock(Settings, ChestTriple, ChestTriple) constructor} manually, but this is the recommended way.
      */
     public static class Builder {
         private final Settings settings;
@@ -84,9 +84,9 @@ public class TexturedChestBlock extends ChestBlock {
          * <p>
          * The textures must be in the chest atlas, or in the {@code entity/chest} directory.
          *
-         * @param single an {@link Identifier} for the texture for this chest when it is by itself.
-         * @param left an {@link Identifier} for the texture for the left side of the double chest.
-         * @param right an {@link Identifier} for the texture for the right side of the double chest.
+         * @param single an {@link Identifier} for the texture for this chest when it is by itself
+         * @param left an {@link Identifier} for the texture for the left side of the double chest
+         * @param right an {@link Identifier} for the texture for the right side of the double chest
          * @return {@code this}, after the textures have been set.
          */
         public Builder setTextures(Identifier single, Identifier left, Identifier right) {
@@ -99,9 +99,9 @@ public class TexturedChestBlock extends ChestBlock {
          * <p>
          * The textures must be in the chest atlas, or in the {@code entity/chest} directory.
          *
-         * @param single an {@link Identifier} for the texture for this chest when it is by itself.
-         * @param left an {@link Identifier} for the texture for the left side of the double chest.
-         * @param right an {@link Identifier} for the texture for the right side of the double chest.
+         * @param single an {@link Identifier} for the texture for this chest when it is by itself
+         * @param left an {@link Identifier} for the texture for the left side of the double chest
+         * @param right an {@link Identifier} for the texture for the right side of the double chest
          * @return {@code this}, after the textures have been set.
          */
         public Builder setChristmasTextures(Identifier single, Identifier left, Identifier right) {
@@ -114,10 +114,10 @@ public class TexturedChestBlock extends ChestBlock {
          * <p>
          * The textures must be in the chest atlas, or in the {@code entity/chest} directory.
          *
-         * @param single an {@link Identifier} for the texture for this chest when it is by itself.
-         * @param left an {@link Identifier} for the texture for the left side of the double chest.
-         * @param right an {@link Identifier} for the texture for the right side of the double chest.
-         * @param christmas whether the textures to be set will be the ones for on Christmas.
+         * @param single an {@link Identifier} for the texture for this chest when it is by itself
+         * @param left an {@link Identifier} for the texture for the left side of the double chest
+         * @param right an {@link Identifier} for the texture for the right side of the double chest
+         * @param christmas whether the textures to be set will be the ones for on Christmas
          * @return {@code this}, after the textures have been set.
          */
         public Builder setTextures(Identifier single, Identifier left, Identifier right, boolean christmas) {

@@ -31,14 +31,16 @@ dependencies {
 ```
 
 Many of the classes and methods in this mod are already documented in the test mod and JavaDocs.
+The same test mod jar should work on all versions WSMLMB supports (1.18.2 -> latest).
 
 For adding custom chests, see the [TexturedChestBlock](src/main/java/net/anawesomguy/wsmlmb/block/chest/TexturedChestBlock.java) class and method, and read their JavaDocs.<br>
 You can do that same for custom crafting tables at [CustomCraftingTableBlock](src/main/java/net/anawesomguy/wsmlmb/block/CustomCraftingTableBlock.java).
 
 To add custom shears, simply add your `ShearsItem` to the `#c:shears` tag.
 
-For support over multiple versions, see the methods in [WSMLMBUtil](src/main/java/net/anawesomguy/wsmlmb/util/WSMLMBUtil.java) and the [MultiVersionBlockSettings](src/main/java/net/anawesomguy/wsmlmb/block/MultiVersionBlockSettings.java) and [MultiVersionItemSettings](src/main/java/net/anawesomguy/wsmlmb/item/MultiVersionItemSettings.java) classes.
+For support over multiple versions, see the methods in [CrossVersionUtil](src/main/java/net/anawesomguy/wsmlmb/util/CrossVersionUtil.java) and the [MultiVersionBlockSettings](src/main/java/net/anawesomguy/wsmlmb/block/MultiVersionBlockSettings.java) and [MultiVersionItemSettings](src/main/java/net/anawesomguy/wsmlmb/item/MultiVersionItemSettings.java) classes.
 
-### Every major version (1.x.x -> 2.x.x) will have breaking changes, so make your dependencies for only one major version!
+### Every major version (1.x.x -> 2.x.x) will have *breaking changes*, so make your dependencies for only one major version!
+#### Beta and alpha versions may also have breaking changes.
 
 If you need any help, you can contact me at `@anawesomguy` on Discord in the ["The Fabric Project"](https://discord.gg/v6v4pMv) server.

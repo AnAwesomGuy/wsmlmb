@@ -1,3 +1,4 @@
-port stuff
-added multiversion item and block settings
-added a bunch of util methods
+THIS VERSION BREAKS BACKWARDS COMPATIBILITY! BEWARE!
+add a bunch of methods for _even more_ cross-version compatibility
+remove `ListArrayUtil`, it was useless
+rename `WSMLMBUtil` to `CrossVersionUtil`

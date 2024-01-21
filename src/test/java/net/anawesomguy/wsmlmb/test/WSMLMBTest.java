@@ -4,7 +4,6 @@ import net.anawesomguy.wsmlmb.block.CustomCraftingTableBlock;
 import net.anawesomguy.wsmlmb.block.MultiVersionBlockSettings;
 import net.anawesomguy.wsmlmb.block.chest.TexturedChestBlock;
 import net.anawesomguy.wsmlmb.item.MultiVersionItemSettings;
-import net.anawesomguy.wsmlmb.util.WSMLMBUtil;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -14,13 +13,16 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+
 public final class WSMLMBTest implements ModInitializer {
     public static final String MOD_ID = "wsmlmb-test";
     public static final Block STONE_CHEST = Registry.register(
         Registries.BLOCK,
         new Identifier(MOD_ID, "stone_chest"),
         new TexturedChestBlock.Builder(MultiVersionBlockSettings.of("stone").strength(1.5F, 6).requiresTool())
-            .setTextures(chestTexture("stone"), chestTexture("stone_left"), chestTexture("stone_right")) // sets the textures
+            .setTextures(chestTexture("stone"), chestTexture("stone_left"), chestTexture("stone_right")) // sets the textures (taken from chest colorizer)
             .build()
     );
     public static final Item STONE_CHEST_ITEM = Registry.register(
@@ -47,8 +49,10 @@ public final class WSMLMBTest implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        WSMLMBUtil.addToGroup("functional", CUSTOM_CRAFTING_TABLE_ITEM, STONE_CHEST_ITEM);
-        WSMLMBUtil.addToGroup("tools", TEST_SHEARS);
+        for (Field field : Registries.class.getFields()) {
+            if (Modifier.isPublic(field.getModifiers()) || "ROOT".equals(field.getName()))
+                System.out.printf("case \"%s\" -> Registries.%s%n", field.getName().toLowerCase(), field.getName());
+        }
     }
 
     private static Identifier chestTexture(String textureName) {

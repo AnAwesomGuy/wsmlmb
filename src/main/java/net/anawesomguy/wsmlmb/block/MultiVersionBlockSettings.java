@@ -265,8 +265,6 @@ public final class MultiVersionBlockSettings extends FabricBlockSettings {
         return this;
     }
 
-    /* FABRIC DELEGATE WRAPPERS */
-
     /**
      * @deprecated Please migrate to {@link MultiVersionBlockSettings#mapColor(MapColor)}
      */

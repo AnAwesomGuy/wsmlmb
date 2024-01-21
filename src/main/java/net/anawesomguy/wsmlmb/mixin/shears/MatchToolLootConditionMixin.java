@@ -1,11 +1,13 @@
 package net.anawesomguy.wsmlmb.mixin.shears;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import net.anawesomguy.wsmlmb.mixin.shears.accessors.DirectRegistryEntryListAccessor;
 import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.item.ShearsItem;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.MatchToolLootCondition;
 import net.minecraft.predicate.item.ItemPredicate;
@@ -18,9 +20,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-@Mixin(MatchToolLootCondition.class)
+@Mixin(MatchToolLootCondition.class) @SuppressWarnings("deprecation")
 public abstract class MatchToolLootConditionMixin implements LootCondition {
     @Unique
     private static final List<ItemPredicate> MATCH_TOOL_PREDICATES = new ArrayList<>();
@@ -32,28 +36,34 @@ public abstract class MatchToolLootConditionMixin implements LootCondition {
     }
 
     static {
+        Set<RegistryEntry<Item>> shearsItems = new HashSet<>(); // holds all the `ShearsItem`s
+        RegistryEntry<Item> shearsRegistryEntry = Items.SHEARS.getRegistryEntry();
+
         // loot is loaded before tags, so this is required
         CommonLifecycleEvents.TAGS_LOADED.register((registries, client) -> {
-            if (!client) {
-                List<RegistryEntry<Item>> shears = new ArrayList<>();
-                for (RegistryEntry<Item> entry :
-                        Registries.ITEM.getOrCreateEntryList(ConventionalItemTags.SHEARS))
-                    shears.add(entry);
+            if (!client)
+                return;
 
-                for (ItemPredicate p : MATCH_TOOL_PREDICATES) {
-                    //noinspection deprecation
-                    if (p.items().isPresent() && p.items().get().contains(Items.SHEARS.getRegistryEntry())) {
-                        @SuppressWarnings("unchecked")
-                        DirectRegistryEntryListAccessor<Item> accessor = ((DirectRegistryEntryListAccessor<Item>)p.items().get());
-                        ImmutableList.Builder<RegistryEntry<Item>> builder = new ImmutableList.Builder<>();
-                        builder.addAll(accessor.getEntries());
-                        builder.addAll(shears);
-                        accessor.setEntries(builder.build());
-                        accessor.setEntrySet(null);
-                    }
+            if (shearsItems.isEmpty())
+                for (Item item : Registries.ITEM)
+                    if (item instanceof ShearsItem)
+                        shearsItems.add(item.getRegistryEntry());
+
+            Set<RegistryEntry<Item>> shears = ImmutableSet.<RegistryEntry<Item>>builderWithExpectedSize(shearsItems.size())
+                                                          .addAll(Registries.ITEM.iterateEntries(ConventionalItemTags.SHEARS))
+                                                          .addAll(shearsItems)
+                                                          .build(); // use ImmutableSet for performance when using addAll on an ImmutableList builder
+
+            for (ItemPredicate p : MATCH_TOOL_PREDICATES) {
+                if (p.items().isPresent() && p.items().get().contains(shearsRegistryEntry)) {
+                    @SuppressWarnings("unchecked")
+                    DirectRegistryEntryListAccessor<Item> accessor = ((DirectRegistryEntryListAccessor<Item>)p.items().get());
+                    ImmutableList.Builder<RegistryEntry<Item>> builder = new ImmutableList.Builder<>();
+                    builder.addAll(accessor.getEntries());
+                    builder.addAll(shears);
+                    accessor.setEntries(builder.build());
+                    accessor.setEntrySet(null);
                 }
-
-                shears.clear();
             }
             MATCH_TOOL_PREDICATES.clear();
         });

@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.ApiStatus.Internal;
 
 import static java.util.Objects.requireNonNull;
 import static net.minecraft.client.render.TexturedRenderLayers.*;
@@ -52,6 +53,7 @@ public record ChestTriple(Identifier singleTexture, Identifier leftTexture, Iden
         return christmas ? DEFAULT_CHRISTMAS_TEXTURES : DEFAULT_TEXTURES;
     }
 
+    @Internal
     public ChestTriple(Identifier singleTexture, Identifier leftTexture, Identifier rightTexture) {
         this.singleTexture = requireNonNull(singleTexture, "singleTexture cannot be null");
         this.leftTexture = requireNonNull(leftTexture, "leftTexture cannot be null");
@@ -109,12 +111,14 @@ public record ChestTriple(Identifier singleTexture, Identifier leftTexture, Iden
             return christmas ? DEFAULT_CHRISTMAS_TEXTURES : DEFAULT_TEXTURES;
         }
 
+        @Internal
         public Sprite(SpriteIdentifier singleTexture, SpriteIdentifier leftTexture, SpriteIdentifier rightTexture) {
             this.singleTexture = requireNonNull(singleTexture, "singleTexture cannot be null");
             this.leftTexture = requireNonNull(leftTexture, "leftTexture cannot be null");
             this.rightTexture = requireNonNull(rightTexture, "rightTexture cannot be null");
         }
 
+        @Internal
         public Sprite(Identifier singleTexture, Identifier leftTexture, Identifier rightTexture) {
             this(
                 new SpriteIdentifier(CHEST_ATLAS_TEXTURE, requireNonNull(singleTexture, "singleTexture cannot be null")),

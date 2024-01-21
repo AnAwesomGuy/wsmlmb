@@ -157,9 +157,6 @@ publishMods {
 }
 
 loom {
-    // accesswidener
-    accessWidenerPath = file "src/main/resources/wsmlmb.accesswidener"
-
     // testmod runs
     runs {
         testmodClient {
